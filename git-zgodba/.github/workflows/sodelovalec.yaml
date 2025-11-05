@@ -1,0 +1,40 @@
+name: Navidezni sodelovalec
+
+on: [push]
+
+jobs:
+  dodaj-commit:
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v4
+
+    - name: Preveri za magicno besedo
+      id: keyword_search
+      run: |
+        if grep -q "magicnabeseda" navodila.md; then
+          echo "ustvari=false" >> $GITHUB_OUTPUT
+        else
+          echo "ustvari=true" >> $GITHUB_OUTPUT
+        fi
+        if ! grep -q "inhibit-stiridva" navodila.md; then
+          echo "ustvari=false" >> $GITHUB_OUTPUT
+        fi
+
+    - name: Ustvari commit
+      if: steps.keyword_search.outputs.ustvari == 'true'
+      run: |
+        git config --global user.name 'github-actions'
+        git config --global user.email 'github-actions@github.com'
+        echo '5. poženi `git pull origin master`, da snameš ta commit! Čestitke za opravljen kurz.' >> navodila.md
+        echo "" >> navodila.md
+        echo "" >> navodila.md
+        echo "" >> navodila.md
+        echo "% tega ne briši" >> navodila.md
+        echo "magicnabeseda" >> navodila.md
+        git add navodila.md
+        git commit -m "Dopolnitev navodil"
+        git push
