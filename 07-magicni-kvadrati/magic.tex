@@ -3,13 +3,16 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
-
 \usepackage{url}
 \usepackage{graphicx}
 \usepackage{amsthm}
+\usepackage{amsmath}
 \usepackage{booktabs}
 \usepackage{color}
 \usepackage{xcolor}
+\usepackage[backend=biber]{biblatex} % Povemo, da uporabljamo biber
+\addbibresource{magic.bib}
+\usepackage{csquotes}
 
 % Nastavimo koliko prostora izpustimo pod napisom nad sliko ali tabelo.
 \setlength{\belowcaptionskip}{2mm}
@@ -21,7 +24,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 {\theoremstyle{plain}
 \newtheorem{izrek}{Izrek}[section]
-\newtheorem{posldeica}[izrek]{Posledica}
+\newtheorem{posledica}[izrek]{Posledica}
 }
 
 {\theoremstyle{definition}
@@ -59,7 +62,7 @@ Prirejeno iz virov:
 % (naslova sta v komentarju, da ne pride do napake pri prevajanju te datoteke).
 \begin{itemize}
    \item \url{http://mathworld.wolfram.com/MagicSquare.html}   %http://mathworld.wolfram.com/MagicSquare.html
-   \item \url{%http://en.wikipedia.org/wiki/Magic_square}   %http://en.wikipedia.org/wiki/Magic_square
+   \item \url{http://en.wikipedia.org/wiki/Magic_square}   %http://en.wikipedia.org/wiki/Magic_square
 \end{itemize}
 
 
@@ -86,7 +89,7 @@ Prirejeno iz virov:
    stolpca ali vsa števila v katerikoli od glavnih diagonal.
 \end{definicija}
 
-Primer magičnega kvadrata reda 3 je prikazan v tabeli ?!?.
+Primer magičnega kvadrata reda 3 je prikazan v tabeli \ref{table:mag3} %?!?.
 
 % - napis nad tabelo: Magični kvadrat reda 3
 % - oznaka: table:mag3
@@ -95,13 +98,14 @@ Primer magičnega kvadrata reda 3 je prikazan v tabeli ?!?.
 \begin{table}[!ht]
    \centering
    \caption{Magicni kvadrat reda 3}
+   \label{table:mag3}
    \large
    \begin{tabular}{|*{3}{c|}} \hline 
       8 & 1 & 6 \\\hline
       3 & 5 & 7 \\\hline
       4 & 9 & 2 \\\hline
    \end{tabular}
-   \label{table:mag3}
+   
 \end{table}
 
 % Konec magičnega kvadrata
@@ -114,7 +118,7 @@ Primer magičnega kvadrata reda 3 je prikazan v tabeli ?!?.
    \end{equation}
 \end{definicija}
 
-Magični kvadrat v tabeli ?!? je normalen.
+Magični kvadrat v tabeli \ref{table:mag3} je normalen.
 To je tudi najmanjši netrivialen normalen magični kvadrat.
 Poleg normalnih magičnih kvadratov so zanimivi tudi magični kvadrati praštevil.
 
@@ -183,7 +187,7 @@ Lo Shu, vendar je vsako število povečano za 19.
 % Konec magičnega kvadrata
 
 Z magičnimi kvadrati so se ukvarjali tudi najbolj znani matematiki kot na
-primer Euler, glej ???. \label{euler}% ključ: euler
+primer Euler, glej \ref{fig:sagrada}. % ključ: euler
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -192,9 +196,9 @@ primer Euler, glej ???. \label{euler}% ključ: euler
 Najzgodnejši znani magični kvadrat reda 4 je bil odkrit na napisu
 v Khajurahu v Indiji in v Enciklopediji Bratovščine Čistosti iz enajstega
 ali dvanajstega stoletja. Vrh vsega gre celo za ">panmagični kvadrat"<.
-V Evropi sta morda najbolj znana naslednja magična kvadrata reda 4:
-
-Magični kvadrat v litografiji Melancholia I (glej sliko ??
+V Evropi sta morda najbolj znana naslednja magična kvadrata reda 4.
+%
+Magični kvadrat v litografiji Melancholia I (glej sliko 
 za izsek s kvadratom) Albrechta Dürerja naj bi bil najzgodnejši magični kvadrat
 v evropski umetnosti. Zelo podoben je kvadratu Yang Huija, ki je nastal na Kitajskem
 približno 250 let pred Dürerjevim časom. \ref{fig:durer}
@@ -206,7 +210,7 @@ približno 250 let pred Dürerjevim časom. \ref{fig:durer}
 % slike na 150% originalne velikosti.
 \begin{figure}[h]
 \centering
-\includegraphics[scale=1.3]{durer.png}
+\includegraphics[scale=1.50]{durer.png}
 \caption{Dürerjev magični kvadrat}
 \label{fig:durer}
 \end{figure}
@@ -234,13 +238,22 @@ simetričnih parov ($2+8+9+15$ in $3+5+12+14$), in še na nekaj drugih načinov.
 \end{table}
 
 Pasijonska fasada na katedrali Sagrada família v Barceloni
-(glej sliko ?? za fotografijo) vsebuje magični kvadrat reda 4.
-\ref{fig:sagrada}
+(glej sliko \ref{fig:sagrada} za fotografijo) vsebuje magični kvadrat reda 4.
+
+
+\begin{figure}[h]
+   \centering
+   \caption{Fotografija pasijonske fasade na katedrali Sagrada Família}
+   \includegraphics[width=0.6\textwidth]{sagrada.png} % prilagodi velikost po želji
+   
+   \label{fig:sagrada}
+\end{figure}
+
 
 % Tu vstavite sliko
 % - napis nad sliko: Pasijonska fasada, Sagrada Família
 % - oznaka: fig:sagrada
-\includegraphics{sagrada.png}
+
 
 Vsota števil v vrsticah, stolpcih oziroma na diagonalah je 33 -- Jezusova starost
 v času pasijona. Strukturno je kvadrat podoben Dürerjevemu, vendar so števila
@@ -273,7 +286,7 @@ in zato kvadrat ni normalen.
 \end{definicija}
 
 \begin{izrek}
-   Magična konstanta normalnega magičnega kvadrata reda !!
+   Magična konstanta normalnega magičnega kvadrata reda $n$
    je enaka
    \begin{equation}
       \label{eq:mc}
@@ -283,16 +296,18 @@ in zato kvadrat ni normalen.
 
 \begin{proof}
    V normalnem magičnem kvadratu reda $n$ je vsota vseh nastopajočih
-   števil (glej ?? na strani ??) enaka
+   števil (glej \eqref{eq:numbers} na strani \pageref{eq:numbers}) enaka
    $1+2+3+\dots+n^2=\sum_{k=1}^{n^2}k=\frac{1}{2}n^2(n^2+1)$. Ker imamo
    v kvadratu $n$ vrstic z enako vsoto, je vsota števil v eni vrstici
-   enaka številu $M_2(n)$. \ref{eq:numbers} \ref{eq:numbers}
+   enaka številu $M_2(n)$. \ref{eq:numbers} 
 \end{proof}
 
-Preprost račun pokaže, da je konstanti ?? analogna konstanta
+Preprost račun pokaže, da je konstanti \eqref{eq:mc} analogna konstanta
 $M_2(n;A,D)$ za magični kvadrat, v katerem so nameščena števila
-$A$, $A+D$, $A+2D$, \dots, $A+(n^2-1)D$, enaka % sklic: eq:mc
-!!
+$A$, $A+D$, $A+2D$, \dots, $A+(n^2-1)D$, enaka 
+\begin{equation}
+   M_2(n; A, D) = \frac{1}{2} n \left( 2A + D(n^2 - 1) \right)
+\end{equation}
 Kvadratu v tabeli ?!? ustrezata konstanti $A=20$ in $D=1$.
 
 \begin{definicija}
@@ -430,8 +445,8 @@ magični kvadrati redov 5, 6 in 9.
 
 % Tu vstavite bibliografijo
 
-\bibliographystyle{plain} 
-\bibliography{magic}
+\printbibliography
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
